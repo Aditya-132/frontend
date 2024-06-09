@@ -4,28 +4,63 @@ import { toast } from "react-toastify";
 import Modal from 'react-modal';
 import './JobApplicationForm.css'; 
 
-
 Modal.setAppElement('#root'); // Bind modal to your app element
 
 const JobApplicationForm = () => {
-  const [reg, setReg] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [cgpa, setCgpa] = useState("");
-  const [cgpaProof, setCgpaProof] = useState(null);
-  const [dob, setDob] = useState("");
-  const [gender, setGender] = useState("");
-  const [ssc, setSsc] = useState("");
-  const [sscProof, setSscProof] = useState(null);
-  const [hsc, setHsc] = useState("");
-  const [hscProof, setHscProof] = useState(null);
-  const [projects, setProjects] = useState("");
-  const [internship, setInternship] = useState("");
-  const [branch, setBranch] = useState("CSE");
-  const [address, setAddress] = useState("");
-  const [skills, setSkills] = useState("");
-  const [references, setReferences] = useState("");
+  const [formData, setFormData] = useState({
+    reg: "",
+    fullName: "",
+    email: "",
+    phone: "",
+    cgpa: "",
+    dob: "",
+    gender: "",
+    address: "",
+    caste: "",
+    gapYears: "",
+    careerPlans: "",
+    ssc: "",
+    sscSchool: "",
+    hsc: "",
+    hscSchool: "",
+    branch: "CSE",
+    projects: "",
+    internship: "",
+    workExperience: "",
+    skills: "",
+    electiveSubjects: "",
+    communicationLanguages: "",
+    references: "",
+    research: "",
+    certifications: "",
+    workshops: "",
+    achievements: "",
+    linkedinProfile: "",
+    githubProfile: "",
+    portfolio: "",
+    preferredLocation: "",
+    noticePeriod: "",
+    expectedSalary: "",
+    currentSalary: "",
+    availability: "",
+    awards: "",
+    hobbies: "",
+    extraCurricularActivities: "",
+    patents: "",
+    professionalMemberships: "",
+    languagesKnown: "",
+    maritalStatus: "",
+    nationality: "",
+    passportNumber: "",
+    visaStatus: "",
+    drivingLicense: "",
+    disability: ""
+  });
+
+  const [files, setFiles] = useState({
+    resume: null,
+    idCard: null
+  });
 
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
@@ -36,7 +71,7 @@ const JobApplicationForm = () => {
 
   const sendOtp = async () => {
     try {
-      const { data } = await axios.post(`https://backend-1-qebm.onrender.com/api/v1/sendOtp`, { email });
+      const { data } = await axios.post(`https://backend-1-qebm.onrender.com/api/v1/sendOtp`, { email: formData.email });
       setOtpSent(true);
       toast.success("OTP sent to your email");
     } catch (error) {
@@ -47,7 +82,7 @@ const JobApplicationForm = () => {
 
   const verifyOtp = async () => {
     try {
-      const { data } = await axios.post(`https://backend-1-qebm.onrender.com/api/v1/verifyOtp`, { email, otp });
+      const { data } = await axios.post(`https://backend-1-qebm.onrender.com/api/v1/verifyOtp`, { email: formData.email, otp });
       if (data.success) {
         setOtpVerified(true);
         setIsModalOpen(false);
@@ -61,6 +96,16 @@ const JobApplicationForm = () => {
     }
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleFileChange = (e) => {
+    const { name, files } = e.target;
+    setFiles((prevFiles) => ({ ...prevFiles, [name]: files[0] }));
+  };
+
   const handleJobApplication = async (e) => {
     e.preventDefault();
     if (!otpVerified) {
@@ -68,29 +113,17 @@ const JobApplicationForm = () => {
       return;
     }
     try {
-      const formData = new FormData();
-      formData.append("reg", reg);
-      formData.append("fullName", fullName);
-      formData.append("email", email);
-      formData.append("phone", phone);
-      formData.append("cgpa", cgpa);
-      formData.append("cgpaProof", cgpaProof);
-      formData.append("dob", dob);
-      formData.append("gender", gender);
-      formData.append("ssc", ssc);
-      formData.append("sscProof", sscProof);
-      formData.append("hsc", hsc);
-      formData.append("hscProof", hscProof);
-      formData.append("projects", projects);
-      formData.append("internship", internship);
-      formData.append("branch", branch);
-      formData.append("address", address);
-      formData.append("skills", skills);
-      formData.append("references", references);
+      const dataToSubmit = new FormData();
+      for (const key in formData) {
+        dataToSubmit.append(key, formData[key]);
+      }
+      for (const key in files) {
+        dataToSubmit.append(key, files[key]);
+      }
 
       const { data } = await axios.post(
         `https://backend-1-qebm.onrender.com/api/v1/jobApplication/post`,
-        formData,
+        dataToSubmit,
         {
           withCredentials: true,
           headers: { "Content-Type": "multipart/form-data" },
@@ -98,24 +131,59 @@ const JobApplicationForm = () => {
       );
       toast.success(data.message);
       // Reset form fields
-      setReg("");
-      setFullName("");
-      setEmail("");
-      setPhone("");
-      setCgpa("");
-      setCgpaProof(null);
-      setDob("");
-      setGender("");
-      setSsc("");
-      setSscProof(null);
-      setHsc("");
-      setHscProof(null);
-      setProjects("");
-      setInternship("");
-      setBranch("CSE");
-      setAddress("");
-      setSkills("");
-      setReferences("");
+      setFormData({
+        reg: "",
+        fullName: "",
+        email: "",
+        phone: "",
+        cgpa: "",
+        dob: "",
+        gender: "",
+        address: "",
+        caste: "",
+        gapYears: "",
+        careerPlans: "",
+        ssc: "",
+        sscSchool: "",
+        hsc: "",
+        hscSchool: "",
+        branch: "CSE",
+        projects: "",
+        internship: "",
+        workExperience: "",
+        skills: "",
+        electiveSubjects: "",
+        communicationLanguages: "",
+        references: "",
+        research: "",
+        certifications: "",
+        workshops: "",
+        achievements: "",
+        linkedinProfile: "",
+        githubProfile: "",
+        portfolio: "",
+        preferredLocation: "",
+        noticePeriod: "",
+        expectedSalary: "",
+        currentSalary: "",
+        availability: "",
+        awards: "",
+        hobbies: "",
+        extraCurricularActivities: "",
+        patents: "",
+        professionalMemberships: "",
+        languagesKnown: "",
+        maritalStatus: "",
+        nationality: "",
+        passportNumber: "",
+        visaStatus: "",
+        drivingLicense: "",
+        disability: ""
+      });
+      setFiles({
+        resume: null,
+        idCard: null
+      });
       setOtp("");
       setOtpSent(false);
       setOtpVerified(false);
@@ -133,27 +201,30 @@ const JobApplicationForm = () => {
             <label>Registration Number</label>
             <input
               type="text"
+              name="reg"
               placeholder="Registration Number"
-              value={reg}
-              onChange={(e) => setReg(e.target.value)}
+              value={formData.reg}
+              onChange={handleChange}
             />
           </div>
           <div>
             <label>Full Name</label>
             <input
               type="text"
+              name="fullName"
               placeholder="Full Name"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              value={formData.fullName}
+              onChange={handleChange}
             />
           </div>
           <div>
             <label>Email</label>
             <input
               type="email"
+              name="email"
               placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={formData.email}
+              onChange={handleChange}
             />
             <button 
               type="button" 
@@ -168,39 +239,44 @@ const JobApplicationForm = () => {
             <label>Mobile Number</label>
             <input
               type="text"
+              name="phone"
               placeholder="Mobile Number"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={formData.phone}
+              onChange={handleChange}
             />
           </div>
           <div>
             <label>CGPA</label>
             <input
               type="number"
+              name="cgpa"
               placeholder="CGPA"
-              value={cgpa}
-              onChange={(e) => setCgpa(e.target.value)}
+              value={formData.cgpa}
+              onChange={handleChange}
             />
             <label>Upload CGPA Proof</label>
             <input
               type="file"
-              onChange={(e) => setCgpaProof(e.target.files[0])}
+              name="cgpaProof"
+              onChange={handleFileChange}
             />
           </div>
           <div>
             <label>Date of Birth</label>
             <input
               type="date"
+              name="dob"
               placeholder="Date of Birth"
-              value={dob}
-              onChange={(e) => setDob(e.target.value)}
+              value={formData.dob}
+              onChange={handleChange}
             />
           </div>
           <div>
             <label>Gender</label>
             <select
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
+              name="gender"
+              value={formData.gender}
+              onChange={handleChange}
             >
               <option value="">Select Gender</option>
               <option value="Male">Male</option>
@@ -212,53 +288,60 @@ const JobApplicationForm = () => {
             <label>SSC Percentage</label>
             <input
               type="number"
+              name="ssc"
               placeholder="SSC Percentage"
-              value={ssc}
-              onChange={(e) => setSsc(e.target.value)}
+              value={formData.ssc}
+              onChange={handleChange}
             />
             <label>Upload SSC Proof</label>
             <input
               type="file"
-              onChange={(e) => setSscProof(e.target.files[0])}
+              name="sscProof"
+              onChange={handleFileChange}
             />
           </div>
           <div>
             <label>HSC Percentage</label>
             <input
               type="number"
+              name="hsc"
               placeholder="HSC Percentage"
-              value={hsc}
-              onChange={(e) => setHsc(e.target.value)}
+              value={formData.hsc}
+              onChange={handleChange}
             />
             <label>Upload HSC Proof</label>
             <input
               type="file"
-              onChange={(e) => setHscProof(e.target.files[0])}
+              name="hscProof"
+              onChange={handleFileChange}
             />
           </div>
           <div>
             <label>Projects</label>
             <input
               type="text"
+              name="projects"
               placeholder="Projects"
-              value={projects}
-              onChange={(e) => setProjects(e.target.value)}
+              value={formData.projects}
+              onChange={handleChange}
             />
           </div>
           <div>
             <label>Internships</label>
             <input
               type="text"
+              name="internship"
               placeholder="Internships"
-              value={internship}
-              onChange={(e) => setInternship(e.target.value)}
+              value={formData.internship}
+              onChange={handleChange}
             />
           </div>
           <div>
             <label>Branch</label>
             <select
-              value={branch}
-              onChange={(e) => setBranch(e.target.value)}
+              name="branch"
+              value={formData.branch}
+              onChange={handleChange}
             >
               {branchesArray.map((branch, index) => (
                 <option value={branch} key={index}>
@@ -270,27 +353,30 @@ const JobApplicationForm = () => {
           <div>
             <label>Address</label>
             <textarea
+              name="address"
               rows="4"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              value={formData.address}
+              onChange={handleChange}
               placeholder="Address"
             />
           </div>
           <div>
             <label>Skills</label>
             <textarea
+              name="skills"
               rows="4"
-              value={skills}
-              onChange={(e) => setSkills(e.target.value)}
+              value={formData.skills}
+              onChange={handleChange}
               placeholder="Skills"
             />
           </div>
           <div>
             <label>References</label>
             <textarea
+              name="references"
               rows="4"
-              value={references}
-              onChange={(e) => setReferences(e.target.value)}
+              value={formData.references}
+              onChange={handleChange}
               placeholder="References"
             />
           </div>

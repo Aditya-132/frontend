@@ -3,8 +3,6 @@ import "./JobApplicationDetail.css";
 import { FaEye, FaEdit, FaSave } from "react-icons/fa";
 import Modal from "react-modal";
 
-// const baseURL = process.env.BASE_URL || "http://localhost:4000";
-
 const JobApplicationDetail = ({ email }) => {
   const [jobApplication, setJobApplication] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -91,6 +89,64 @@ const JobApplicationDetail = ({ email }) => {
     return <div>Error loading job application details.</div>;
   }
 
+  const renderField = (field, type = "text", options = []) => (
+    <div key={field} className="field">
+      <strong>{field.replace(/([A-Z])/g, " $1").toUpperCase()}:</strong>
+      {editMode[field] ? (
+        type === "textarea" ? (
+          <textarea
+            value={jobApplication[field]}
+            onChange={(e) => handleInputChange(e, field)}
+          />
+        ) : type === "select" ? (
+          <select
+            value={jobApplication[field]}
+            onChange={(e) => handleInputChange(e, field)}
+          >
+            {options.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        ) : type === "date" ? (
+          <input
+            type="date"
+            value={jobApplication[field]}
+            onChange={(e) => handleInputChange(e, field)}
+          />
+        ) : (
+          <input
+            type="text"
+            value={jobApplication[field]}
+            onChange={(e) => handleInputChange(e, field)}
+          />
+        )
+      ) : (
+        <span>{jobApplication[field]}</span>
+      )}
+      <FaEdit onClick={() => toggleEditMode(field)} className="edit-icon" />
+      {editMode[field] && (
+        <FaSave onClick={() => saveChanges(field)} className="save-icon" />
+      )}
+    </div>
+  );
+
+  const renderProofField = (field) => (
+    <div key={field} className="field">
+      <strong>{field.replace("Proof", "").toUpperCase()} Proof:</strong>
+      {editMode[field] ? (
+        <>
+          <input type="file" onChange={(e) => handleInputChange(e, field)} />
+          <FaSave onClick={() => saveChanges(field)} className="save-icon" />
+        </>
+      ) : (
+        <FaEye className="eye-icon" onClick={() => openModal(jobApplication[field]?.url)} />
+      )}
+      <FaEdit onClick={() => toggleEditMode(field)} className="edit-icon" />
+    </div>
+  );
+
   return (
     <>
       <div className="job-application-detail">
@@ -98,197 +154,106 @@ const JobApplicationDetail = ({ email }) => {
           <h1>Job Application Detail</h1>
         </div>
         <div className="details-container">
+          {/* Personal Information Section */}
           <section className="detail-card">
             <h2>Personal Information</h2>
-            {["fullName", "email", "phone", "dob", "gender", "address"].map(
-              (field) => (
-                <div key={field} className="field">
-                  <strong>
-                    {field.charAt(0).toUpperCase() + field.slice(1)}:
-                  </strong>
-                  {editMode[field] ? (
-                    field === "dob" ? (
-                      <input
-                        type="date"
-                        value={jobApplication[field]}
-                        onChange={(e) => handleInputChange(e, field)}
-                      />
-                    ) : field === "gender" ? (
-                      <select
-                        value={jobApplication[field]}
-                        onChange={(e) => handleInputChange(e, field)}
-                      >
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
-                      </select>
-                    ) : field === "address" ? (
-                      <textarea
-                        value={jobApplication[field]}
-                        onChange={(e) => handleInputChange(e, field)}
-                      />
-                    ) : (
-                      <input
-                        type="text"
-                        value={jobApplication[field]}
-                        onChange={(e) => handleInputChange(e, field)}
-                      />
-                    )
-                  ) : (
-                    <span>{jobApplication[field]}</span>
-                  )}
-                  <FaEdit
-                    onClick={() => toggleEditMode(field)}
-                    className="edit-icon"
-                  />
-                  {editMode[field] && (
-                    <FaSave
-                      onClick={() => saveChanges(field)}
-                      className="save-icon"
-                    />
-                  )}
-                </div>
-              )
-            )}
+            {renderField("reg")}
+            {renderField("fullName")}
+            {renderField("email")}
+            {renderField("phone")}
+            {renderField("dob", "date")}
+            {renderField("gender", "select", ["Male", "Female", "Other"])}
+            {renderField("address", "textarea")}
+            {renderField("caste")}
+            {renderField("gapYears", "number")}
+            {renderField("careerPlans", "textarea")}
           </section>
+          {/* Educational Background Section */}
           <section className="detail-card">
             <h2>Educational Background</h2>
-            {["cgpa", "ssc", "hsc"].map((field) => (
-              <div key={field} className="field">
-                <strong>{field.toUpperCase()}:</strong>
-                {editMode[field] ? (
-                  <input
-                    type="text"
-                    value={jobApplication[field]}
-                    onChange={(e) => handleInputChange(e, field)}
-                  />
-                ) : (
-                  <span>{jobApplication[field]}</span>
-                )}
-                <FaEdit
-                  onClick={() => toggleEditMode(field)}
-                  className="edit-icon"
-                />
-                {editMode[field] && (
-                  <FaSave
-                    onClick={() => saveChanges(field)}
-                    className="save-icon"
-                  />
-                )}
-              </div>
-            ))}
-            {["cgpaProof", "sscProof", "hscProof"].map((field) => (
-              <div key={field} className="field">
-                <strong>{field.replace("Proof", "").toUpperCase()} Proof:</strong>
-                {editMode[field] ? (
-                  <>
-                    <input
-                      type="file"
-                      onChange={(e) => handleInputChange(e, field)}
-                    />
-                    <FaSave
-                      onClick={() => saveChanges(field)}
-                      className="save-icon"
-                    />
-                  </>
-                ) : (
-                  <FaEye
-                    className="eye-icon"
-                    onClick={() => openModal(jobApplication[field]?.url)}
-                  />
-                )}
-                <FaEdit
-                  onClick={() => toggleEditMode(field)}
-                  className="edit-icon"
-                />
-              </div>
-            ))}
+            {renderField("cgpa", "number")}
+            {renderProofField("cgpaProof")}
+            {renderField("ssc", "number")}
+            {renderProofField("sscProof")}
+            {renderField("sscSchool")}
+            {renderField("hsc", "number")}
+            {renderProofField("hscProof")}
+            {renderField("hscSchool")}
           </section>
+          {/* Professional Experience Section */}
           <section className="detail-card">
             <h2>Professional Experience</h2>
-            {["projects", "internship"].map((field) => (
-              <div key={field} className="field">
-                <strong>
-                  {field.charAt(0).toUpperCase() + field.slice(1)}:
-                </strong>
-                {editMode[field] ? (
-                  <textarea
-                    value={jobApplication[field]}
-                    onChange={(e) => handleInputChange(e, field)}
-                  />
-                ) : (
-                  <span>{jobApplication[field]}</span>
-                )}
-                <FaEdit
-                  onClick={() => toggleEditMode(field)}
-                  className="edit-icon"
-                />
-                {editMode[field] && (
-                  <FaSave
-                    onClick={() => saveChanges(field)}
-                    className="save-icon"
-                  />
-                )}
-              </div>
-            ))}
+            {renderField("branch", "select", ["Electrical", "Mechanical", "CSE", "Civil", "Electronics"])}
+            {renderField("projects", "textarea")}
+            {renderField("internship", "textarea")}
+            {renderField("workExperience", "textarea")}
+            {renderField("skills", "textarea")}
+            {renderField("electiveSubjects", "textarea")}
+            {renderField("communicationLanguages", "textarea")}
           </section>
+          {/* Additional Information Section */}
           <section className="detail-card">
             <h2>Additional Information</h2>
-            {["branch", "skills", "references"].map((field) => (
-              <div key={field} className="field">
-                <strong>
-                  {field.charAt(0).toUpperCase() + field.slice(1)}:
-                </strong>
-                {editMode[field] ? (
-                  <textarea
-                    value={jobApplication[field]}
-                    onChange={(e) => handleInputChange(e, field)}
-                  />
-                ) : (
-                  <span>{jobApplication[field]}</span>
-                )}
-                <FaEdit
-                  onClick={() => toggleEditMode(field)}
-                  className="edit-icon"
-                />
-                {editMode[field] && (
-                  <FaSave
-                    onClick={() => saveChanges(field)}
-                    className="save-icon"
-                  />
-                )}
-              </div>
+            {renderField("references", "textarea")}
+            {renderField("research", "textarea")}
+            {renderField("hobbies", "textarea")}
+            {renderField("extraCurricularActivities", "textarea")}
+            {renderField("patents", "textarea")}
+            {renderField("professionalMemberships", "textarea")}
+            {renderField("languagesKnown", "textarea")}
+            {renderField("maritalStatus", "select", ["Single", "Married", "Divorced", "Widowed"])}
+            {renderField("nationality")}
+            {renderField("passportNumber")}
+            {renderField("visaStatus")}
+            {renderField("disability", "textarea")}
+          </section>
+          {/* Social Profiles Section */}
+          <section className="detail-card">
+            <h2>Social Profiles</h2>
+            {renderField("linkedinProfile")}
+            {renderField("githubProfile")}
+            {renderField("portfolio")}
+          </section>
+          {/* Job Preferences Section */}
+          <section className="detail-card">
+            <h2>Job Preferences</h2>
+            {renderField("preferredLocation")}
+            {renderField("noticePeriod", "number")}
+            {renderField("expectedSalary", "number")}
+            {renderField("currentSalary", "number")}
+            {renderField("availability", "select", ["Immediate", "Within 1 Month", "Within 3 Months"])}
+          </section>
+          {/* Documents Section */}
+          <section className="detail-card">
+            <h2>Documents</h2>
+            {renderProofField("resume")}
+            {renderProofField("idCard")}
+            {renderProofField("drivingLicense")}
+          </section>
+          {/* Additional Documents Section */}
+          <section className="detail-card">
+            <h2>Additional Documents</h2>
+            {jobApplication.certifications.map((certification, index) => (
+              renderProofField(`certifications[${index}]`)
+            ))}
+            {jobApplication.awards.map((award, index) => (
+              renderProofField(`awards[${index}]`)
+            ))}
+            {jobApplication.workshops.map((workshop, index) => (
+              renderProofField(`workshops[${index}]`)
+            ))}
+            {jobApplication.achievements.map((achievement, index) => (
+              renderProofField(`achievements[${index}]`)
             ))}
           </section>
         </div>
       </div>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Proof Modal"
-        style={{
-          content: {
-            top: "50%",
-            left: "50%",
-            right: "auto",
-            bottom: "auto",
-            marginRight: "-50%",
-            transform: "translate(-50%, -50%)",
-            width: "80%",
-            height: "80%",
-          },
-        }}
-      >
-        <button onClick={closeModal} className="close-modal-button">
-          Close
-        </button>
-        <div className="proof-content">
-          <img src={proofUrl} alt="Proof Document" style={{ width: "100%" }} />
-          <div>
-            <a href={proofUrl} target="_blank" rel="noopener noreferrer">
-              Open Document
-            </a>
-          </div>
+      <Modal isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Proof Modal">
+        <div className="modal-content">
+          <button className="close-modal" onClick={closeModal}>
+            Close
+          </button>
+          <img src={proofUrl} alt="Proof" />
         </div>
       </Modal>
     </>

@@ -1,14 +1,28 @@
-/* JobApplicationDetail.css */
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-/* General Styles */
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f4f4f4;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* JobApplicationDetail Styles */
 .job-application-detail {
+  width: 90%;
   max-width: 1200px;
   margin: 20px auto;
   padding: 20px;

@@ -195,7 +195,7 @@ const JobApplicationForm = () => {
   return (
     <>
       <h2>Profile</h2>
-      <div className="container1 form-component job-application-form">
+      <div className="">
         <form onSubmit={handleJobApplication}>
           <div>
             <label>Registration Number</label>

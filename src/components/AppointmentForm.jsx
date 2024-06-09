@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import Modal from 'react-modal';
-import './JobApplicationForm.css'; 
+import './JobApplicationForm.css';
 
 Modal.setAppElement('#root'); // Bind modal to your app element
 
@@ -285,12 +285,60 @@ const JobApplicationForm = () => {
             </select>
           </div>
           <div>
+            <label>Address</label>
+            <textarea
+              name="address"
+              rows="4"
+              value={formData.address}
+              onChange={handleChange}
+              placeholder="Address"
+            />
+          </div>
+          <div>
+            <label>Caste</label>
+            <input
+              type="text"
+              name="caste"
+              placeholder="Caste"
+              value={formData.caste}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Gap Years</label>
+            <input
+              type="text"
+              name="gapYears"
+              placeholder="Gap Years"
+              value={formData.gapYears}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Career Plans</label>
+            <textarea
+              name="careerPlans"
+              rows="4"
+              value={formData.careerPlans}
+              onChange={handleChange}
+              placeholder="Career Plans"
+            />
+          </div>
+          <div>
             <label>SSC Percentage</label>
             <input
               type="number"
               name="ssc"
               placeholder="SSC Percentage"
               value={formData.ssc}
+              onChange={handleChange}
+            />
+            <label>SSC School</label>
+            <input
+              type="text"
+              name="sscSchool"
+              placeholder="SSC School"
+              value={formData.sscSchool}
               onChange={handleChange}
             />
             <label>Upload SSC Proof</label>
@@ -309,31 +357,19 @@ const JobApplicationForm = () => {
               value={formData.hsc}
               onChange={handleChange}
             />
+            <label>HSC School</label>
+            <input
+              type="text"
+              name="hscSchool"
+              placeholder="HSC School"
+              value={formData.hscSchool}
+              onChange={handleChange}
+            />
             <label>Upload HSC Proof</label>
             <input
               type="file"
               name="hscProof"
               onChange={handleFileChange}
-            />
-          </div>
-          <div>
-            <label>Projects</label>
-            <input
-              type="text"
-              name="projects"
-              placeholder="Projects"
-              value={formData.projects}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label>Internships</label>
-            <input
-              type="text"
-              name="internship"
-              placeholder="Internships"
-              value={formData.internship}
-              onChange={handleChange}
             />
           </div>
           <div>
@@ -351,13 +387,33 @@ const JobApplicationForm = () => {
             </select>
           </div>
           <div>
-            <label>Address</label>
+            <label>Projects</label>
             <textarea
-              name="address"
+              name="projects"
               rows="4"
-              value={formData.address}
+              value={formData.projects}
               onChange={handleChange}
-              placeholder="Address"
+              placeholder="Projects"
+            />
+          </div>
+          <div>
+            <label>Internships</label>
+            <textarea
+              name="internship"
+              rows="4"
+              value={formData.internship}
+              onChange={handleChange}
+              placeholder="Internships"
+            />
+          </div>
+          <div>
+            <label>Work Experience</label>
+            <textarea
+              name="workExperience"
+              rows="4"
+              value={formData.workExperience}
+              onChange={handleChange}
+              placeholder="Work Experience"
             />
           </div>
           <div>
@@ -371,6 +427,26 @@ const JobApplicationForm = () => {
             />
           </div>
           <div>
+            <label>Elective Subjects</label>
+            <textarea
+              name="electiveSubjects"
+              rows="4"
+              value={formData.electiveSubjects}
+              onChange={handleChange}
+              placeholder="Elective Subjects"
+            />
+          </div>
+          <div>
+            <label>Communication Languages</label>
+            <textarea
+              name="communicationLanguages"
+              rows="4"
+              value={formData.communicationLanguages}
+              onChange={handleChange}
+              placeholder="Communication Languages"
+            />
+          </div>
+          <div>
             <label>References</label>
             <textarea
               name="references"
@@ -378,6 +454,262 @@ const JobApplicationForm = () => {
               value={formData.references}
               onChange={handleChange}
               placeholder="References"
+            />
+          </div>
+          <div>
+            <label>Research</label>
+            <textarea
+              name="research"
+              rows="4"
+              value={formData.research}
+              onChange={handleChange}
+              placeholder="Research"
+            />
+          </div>
+          <div>
+            <label>Certifications</label>
+            <textarea
+              name="certifications"
+              rows="4"
+              value={formData.certifications}
+              onChange={handleChange}
+              placeholder="Certifications"
+            />
+          </div>
+          <div>
+            <label>Workshops</label>
+            <textarea
+              name="workshops"
+              rows="4"
+              value={formData.workshops}
+              onChange={handleChange}
+              placeholder="Workshops"
+            />
+          </div>
+          <div>
+            <label>Achievements</label>
+            <textarea
+              name="achievements"
+              rows="4"
+              value={formData.achievements}
+              onChange={handleChange}
+              placeholder="Achievements"
+            />
+          </div>
+          <div>
+            <label>LinkedIn Profile</label>
+            <input
+              type="text"
+              name="linkedinProfile"
+              placeholder="LinkedIn Profile"
+              value={formData.linkedinProfile}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>GitHub Profile</label>
+            <input
+              type="text"
+              name="githubProfile"
+              placeholder="GitHub Profile"
+              value={formData.githubProfile}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Portfolio</label>
+            <input
+              type="text"
+              name="portfolio"
+              placeholder="Portfolio"
+              value={formData.portfolio}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Preferred Location</label>
+            <input
+              type="text"
+              name="preferredLocation"
+              placeholder="Preferred Location"
+              value={formData.preferredLocation}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Notice Period</label>
+            <input
+              type="text"
+              name="noticePeriod"
+              placeholder="Notice Period"
+              value={formData.noticePeriod}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Expected Salary</label>
+            <input
+              type="text"
+              name="expectedSalary"
+              placeholder="Expected Salary"
+              value={formData.expectedSalary}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Current Salary</label>
+            <input
+              type="text"
+              name="currentSalary"
+              placeholder="Current Salary"
+              value={formData.currentSalary}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Availability</label>
+            <input
+              type="text"
+              name="availability"
+              placeholder="Availability"
+              value={formData.availability}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Awards</label>
+            <textarea
+              name="awards"
+              rows="4"
+              value={formData.awards}
+              onChange={handleChange}
+              placeholder="Awards"
+            />
+          </div>
+          <div>
+            <label>Hobbies</label>
+            <textarea
+              name="hobbies"
+              rows="4"
+              value={formData.hobbies}
+              onChange={handleChange}
+              placeholder="Hobbies"
+            />
+          </div>
+          <div>
+            <label>Extra Curricular Activities</label>
+            <textarea
+              name="extraCurricularActivities"
+              rows="4"
+              value={formData.extraCurricularActivities}
+              onChange={handleChange}
+              placeholder="Extra Curricular Activities"
+            />
+          </div>
+          <div>
+            <label>Patents</label>
+            <textarea
+              name="patents"
+              rows="4"
+              value={formData.patents}
+              onChange={handleChange}
+              placeholder="Patents"
+            />
+          </div>
+          <div>
+            <label>Professional Memberships</label>
+            <textarea
+              name="professionalMemberships"
+              rows="4"
+              value={formData.professionalMemberships}
+              onChange={handleChange}
+              placeholder="Professional Memberships"
+            />
+          </div>
+          <div>
+            <label>Languages Known</label>
+            <textarea
+              name="languagesKnown"
+              rows="4"
+              value={formData.languagesKnown}
+              onChange={handleChange}
+              placeholder="Languages Known"
+            />
+          </div>
+          <div>
+            <label>Marital Status</label>
+            <input
+              type="text"
+              name="maritalStatus"
+              placeholder="Marital Status"
+              value={formData.maritalStatus}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Nationality</label>
+            <input
+              type="text"
+              name="nationality"
+              placeholder="Nationality"
+              value={formData.nationality}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Passport Number</label>
+            <input
+              type="text"
+              name="passportNumber"
+              placeholder="Passport Number"
+              value={formData.passportNumber}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Visa Status</label>
+            <input
+              type="text"
+              name="visaStatus"
+              placeholder="Visa Status"
+              value={formData.visaStatus}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Driving License</label>
+            <input
+              type="text"
+              name="drivingLicense"
+              placeholder="Driving License"
+              value={formData.drivingLicense}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Disability</label>
+            <input
+              type="text"
+              name="disability"
+              placeholder="Disability"
+              value={formData.disability}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Upload Resume</label>
+            <input
+              type="file"
+              name="resume"
+              onChange={handleFileChange}
+            />
+          </div>
+          <div>
+            <label>Upload ID Card</label>
+            <input
+              type="file"
+              name="idCard"
+              onChange={handleFileChange}
             />
           </div>
           <button type="submit" disabled={!otpVerified}>Submit Application</button>

@@ -11,6 +11,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top:200px;
  
   padding: 20px;
   background-color: #f4f4f9;
@@ -24,7 +25,7 @@ body {
   width: 100%;
   max-width: 1000px;
   margin: auto;
-  max-height: 80vh; /* Added height for scrollbar */
+  max-height: 50vh; /* Added height for scrollbar */
   overflow-y: auto; /* Enables scrollbar */
 }
 

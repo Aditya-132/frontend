@@ -25,7 +25,7 @@ body {
   width: 100%;
   max-width: 1000px;
   margin: auto;
-  max-height: 50vh; /* Added height for scrollbar */
+  /* Added height for scrollbar */
   overflow-y: auto; /* Enables scrollbar */
 }
 

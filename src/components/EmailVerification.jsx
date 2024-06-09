@@ -4,8 +4,6 @@ import Modal from "react-modal";
 import JobApplicationDetail from "./JobApplicationDetail";
 import "./EmailVerification.css"; // Import the CSS file
 
-// const baseURL = process.env.BASE_URL || "http://localhost:4000";
-
 Modal.setAppElement('#root'); // Bind modal to your app element
 
 const EmailVerification = () => {

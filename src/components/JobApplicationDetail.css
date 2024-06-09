@@ -1,17 +1,18 @@
 /* JobApplicationDetail.css */
 
+/* General Styles */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
   margin: 0;
   padding: 0;
 }
 
 .job-application-detail {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 20px auto;
   padding: 20px;
-  background: white;
+  background-color: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
@@ -21,96 +22,310 @@ body {
   margin-bottom: 20px;
 }
 
+.header h1 {
+  font-size: 2.5rem;
+  color: #0056b3;
+  margin: 0;
+}
+
 .details-container {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
+/* Detail Card Styles */
 .detail-card {
+  flex: 1;
+  min-width: 300px;
+  background-color: #ffffff;
   padding: 20px;
-  border: 1px solid #ddd;
   border-radius: 8px;
-  background: #fafafa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.detail-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .detail-card h2 {
-  margin-top: 0;
-  margin-bottom: 10px;
-  font-size: 1.2em;
+  font-size: 1.75rem;
+  color: #0056b3;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 10px;
 }
 
+/* Field Styles */
 .field {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .field strong {
   flex: 1;
+  color: #333;
+  font-size: 1.1rem;
 }
 
 .field span {
   flex: 2;
-  padding-left: 10px;
+  color: #666;
+  font-size: 1rem;
 }
 
 .field input[type="text"],
 .field input[type="date"],
-.field input[type="file"],
 .field select,
 .field textarea {
   flex: 2;
-  padding: 5px;
+  padding: 10px;
+  margin-left: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #333;
+  transition: border 0.3s ease-in-out;
+}
+
+.field input[type="text"]:focus,
+.field input[type="date"]:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: #0056b3;
+}
+
+.field input[type="file"] {
   margin-left: 10px;
 }
 
-.edit-icon, .save-icon, .eye-icon {
+.field textarea {
+  resize: vertical;
+}
+
+.edit-icon,
+.save-icon,
+.eye-icon {
   margin-left: 10px;
   cursor: pointer;
-  color: #007bff;
+  color: #0056b3;
+  transition: color 0.3s ease-in-out;
 }
 
-.edit-icon:hover, .save-icon:hover, .eye-icon:hover {
+.edit-icon:hover,
+.save-icon:hover,
+.eye-icon:hover {
+  color: #003366;
+}
+
+/* Button Styles */
+.close-modal-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #0056b3;
+  color: #ffffff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.close-modal-button:hover {
+  background-color: #003366;
+}
+
+/* Proof Content Styles */
+.proof-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.proof-content img {
+  max-height: 70%;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  max-width: 100%;
+}
+
+.proof-content a {
+  font-size: 1.25rem;
   color: #0056b3;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.proof-content a:hover {
+  color: #003366;
+}
+
+/* Form Control Styles */
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 10px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border 0.3s ease-in-out;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
+  border-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .details-container {
+    flex-direction: column;
+  }
+
+  .detail-card {
+    min-width: 100%;
+  }
+}
+
+/* Additional Styles for Better User Experience */
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+button {
+  background-color: #0056b3;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #003366;
+}
+
+/* Modal Styles */
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+.ReactModal__Content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #ffffff;
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .close-modal-button {
   position: absolute;
   top: 10px;
   right: 10px;
-  padding: 5px 10px;
-  background: #007bff;
+  background-color: #0056b3;
   color: white;
   border: none;
-  border-radius: 5px;
+  padding: 10px 15px;
   cursor: pointer;
+  border-radius: 4px;
 }
 
 .close-modal-button:hover {
-  background: #0056b3;
+  background-color: #003366;
 }
 
-.proof-content {
-  text-align: center;
+/* Icon Styles */
+.edit-icon,
+.save-icon,
+.eye-icon {
+  margin-left: 10px;
+  cursor: pointer;
+  color: #0056b3;
+  transition: color 0.3s ease-in-out;
 }
 
-.proof-content img {
-  max-width: 100%;
-  height: auto;
+.edit-icon:hover,
+.save-icon:hover,
+.eye-icon:hover {
+  color: #003366;
 }
 
-.proof-content a {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 20px;
-  background: #007bff;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
+/* Additional Information Styles */
+.detail-card.additional-info {
+  background-color: #eef7ff;
+  border: 1px solid #cce5ff;
 }
 
-.proof-content a:hover {
-  background: #0056b3;
+.detail-card.additional-info h2 {
+  color: #004085;
+}
+
+.detail-card.additional-info .field {
+  margin-bottom: 20px;
+}
+
+.detail-card.additional-info .field strong {
+  color: #004085;
+}
+
+.detail-card.additional-info .field span {
+  color: #0056b3;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

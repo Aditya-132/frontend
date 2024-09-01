@@ -14,6 +14,11 @@ import { Context } from "./main";
 import Login from "./Pages/Login";
 import JobApplicationDetail from "./components/JobApplicationDetail";
 import EmailVerification from "./components/EmailVerification";
+import Test from "./components/Test";
+import AdminTestManagement from "./components/Admintest";
+import Register1 from "./components/Createuser";
+import RegisterAndSubmit from "./components/Test";
+import TestComponent from "./components/Test";
 // import {config} from 'dotenv';
 
 
@@ -50,11 +55,15 @@ const App = () => {
         <Routes>
           <Route index path="/" element={<Home />} />
           <Route path="/newApplicant" element={<Appointment />} />
+          <Route path="/check" element={<EmailVerification/>}/>
           <Route path="/about" element={<AboutUs />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="/admin" element={<AdminTestManagement />} />
+          <Route path="/reg0" element={<TestComponent/>} />
           {/* <Route index path="/" element={<EmailVerification/>} /> */}
-        <Route path="/detail" element={<JobApplicationDetail/>} />
+        {/* <Route path="/detail" element={<JobApplicationDetail/>} /> */}
         </Routes>
         {/* <Footer /> */}
         <ToastContainer position="top-center" />
